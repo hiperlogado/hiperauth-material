@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         },
         title: {
             fontSize: '2rem'
+        },
+        subtitle: {
+            display: 'none'
         }
     },
 }));
@@ -106,7 +109,7 @@ const Home = () => {
         <main className={classes.main}><h1 className={classes.title}>
                 hiperAuth
             </h1>
-            <p>nextjs + firebase + strapi + material-ui</p>            
+            <p className={classes.subtitle}>nextjs + firebase + strapi + material-ui</p>            
             {!user ? <div>                
                 <AutoPlaySwipeableViews
                     index={sections[section]}

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         justifyContent: 'center',
         maxWidth: '14.8rem',
-        gap: '1rem'
+        gap: '0.7rem'
     },
     input: {
         width: '100%',
@@ -41,7 +41,10 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         margin: '0.4rem 0',
         width: "100%",
-        borderRadius: '0.4rem',               
+        borderRadius: '0.4rem',
+        "& .MuiOutlinedInput-input": {
+            padding: '0.6rem'
+        },           
         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
             borderColor: "#555"
         }
