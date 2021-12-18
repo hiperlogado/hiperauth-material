@@ -112,6 +112,7 @@ const Home = () => {
                     index={sections[section]}
                     onChangeIndex={setSection}
                     enableMouseEvents
+                    disabled
                     className={classes.card}
                     >                
                     {<Login key={1} />}
