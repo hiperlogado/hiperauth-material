@@ -124,7 +124,8 @@ const setRegister = async (email,name,uid,photo,token) => {
     if(!dataAccount){      
 
       const dataCreateAccount = await createAccount(createUser?.data?.user?.id,email,name,uid,photo,token ?? createUser?.data?.jwt)      
-      updateUser(createUser?.data?.user?.id,dataCreateAccount?.id,token ?? createUser?.data?.jwt)
+      const log = updateUser(createUser?.data?.user?.id,dataCreateAccount?.id,token ?? createUser?.data?.jwt)
+      console.log(log)
 
     } else {
 
