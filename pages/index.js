@@ -110,7 +110,7 @@ const Home = () => {
                 hiperAuth
             </h1>
             <p className={classes.subtitle}>nextjs + firebase + strapi + material-ui</p>            
-            {!user ? <div>                
+            {!user ? <div>   
                 <AutoPlaySwipeableViews
                     index={sections[section]}
                     onChangeIndex={setSection}

@@ -8,13 +8,18 @@ import { useAuth } from "../hooks/useAuth";
 const useStyles = makeStyles((theme) => ({
     appBar: {
         transition: "all 150ms ease 0s",
-        backgroundColor: '#000',
+        backgroundColor: '#000',        
+        borderRadius: 0,
+        borderBottom: '#ddd solid 0.1rem',
+        boxShadow: 'none',
+    },
+    bar: {
         display: 'flex',
         flexDirection: 'row', 
         justifyContent: 'space-between',
-        borderRadius: 0,
-        borderBottom: '#ddd solid 0.1rem',
-        boxShadow: 'none'
+        maxWidth: '80rem',
+        width: '100%',
+        margin: 'auto'
     },
     topBar: {
         backgroundColor: 'rgba(0,0,0,0)',
@@ -73,17 +78,21 @@ export default function Header() {
 
     }); 
 
-    return <Hidden xsDown implementation="css">
-        <AppBar className={appBarClasses}>                
-            <Button className={classes.button}>Início</Button>
-                {!user ? <div className={classes.links}>
-                    <Button onClick={()=>setSection('login')} className={classes.button}>Entrar</Button>
-                    <Button onClick={()=>setSection('register')} className={classes.button}>Cadastrar</Button>
-                    <Button onClick={()=>setSection('reset')} className={classes.button}>Redefinir Senha</Button>
-                </div> :         
-                <Button onClick={()=>signOutGoogle()} className={classes.button}>Sair</Button>
-            }
-        </AppBar>
-    </Hidden>
+    return <>
+        <Hidden xsDown implementation="css">
+            <AppBar className={appBarClasses}>
+                <div className={classes.bar}>
+                <Button className={classes.button}>Início</Button>
+                    {!user ? <div className={classes.links}>
+                        <Button onClick={()=>setSection('login')} className={classes.button}>Entrar</Button>
+                        <Button onClick={()=>setSection('register')} className={classes.button}>Cadastrar</Button>
+                        <Button onClick={()=>setSection('reset')} className={classes.button}>Redefinir Senha</Button>
+                    </div> :         
+                    <Button onClick={()=>signOutGoogle()} className={classes.button}>Sair</Button>
+                }
+                </div>
+            </AppBar>
+        </Hidden>
+    </>
 
 }
