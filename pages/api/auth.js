@@ -9,7 +9,7 @@ const getAuth = async (email) => {
         }
       }`
     }, { headers: { 'Content-Type':'application/json' }}
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
 
   const dataMe = data?.data?.data && await getMe(data?.data?.data?.login.jwt)
 
@@ -26,7 +26,7 @@ const findAccount = async (email,token) => {
         }
       }`
     },{ headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` }}
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
 
   return data?.data?.data?.cadastros?.[0]
 
@@ -43,7 +43,7 @@ const createAccount = async (userId,email,name,uid,photo,token) => {
         }
       }`
     }, { headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` } }
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
   
   return data?.data?.data?.createCadastro?.cadastro
 
@@ -60,7 +60,7 @@ const updateAccount = async (userId,accountId,email,name,uid,photo,token) => {
         }
       }`
     }, { headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` } }
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
 
 }
 
@@ -75,7 +75,7 @@ const updateUser = async (userId,accountId,token) => {
         }
       }`
     }, { headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` } }
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
 
 }
 
@@ -95,7 +95,7 @@ const getMe = async (token) => {
         }
       }`
     }, { headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` } }
-  ).catch(e=>console.log(e.response.data.errors));
+  ).catch(e=>console.log(e?.response?.data?.errors));
 
   return { 
     userId: data?.data?.data?.me?.user.id, 
