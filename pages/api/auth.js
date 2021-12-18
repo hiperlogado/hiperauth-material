@@ -19,7 +19,7 @@ const getAuth = async (email) => {
 
 const findAccount = async (email,token) => {
 
-  const { data } = await axios.post(process.env.STRAPI_GRAPHQL_URL,{
+  const data = await axios.post(process.env.STRAPI_GRAPHQL_URL,{
       query: `{
         cadastros(where: { email_eq: "${email}" }, publicationState: PREVIEW) {
           id, nome, grupo, isAdmin
@@ -28,13 +28,13 @@ const findAccount = async (email,token) => {
     },{ headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` }}
   ).catch(e=>console.log(e.response.data.errors));
 
-  return data?.data?.cadastros?.[0]
+  return data?.data?.data?.cadastros?.[0]
 
 }
 
 const createAccount = async (userId,email,name,uid,photo,token) => {
 
-  const { data } = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
+  const data = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
       query: `mutation createCadastro {
         createCadastro(input: { data: {user: "${userId}", nome: "${name}", email: "${email}", uid: "${uid}", foto: "${photo}", grupo: Visitante, isAdmin: ${process.env.STRAPI_IDENTIFIER==email}}}){
           cadastro {
@@ -45,7 +45,7 @@ const createAccount = async (userId,email,name,uid,photo,token) => {
     }, { headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` } }
   ).catch(e=>console.log(e.response.data.errors));
   
-  return data?.data?.createCadastro?.cadastro
+  return data?.data?.data?.createCadastro?.cadastro
 
 }
 
@@ -81,7 +81,7 @@ const updateUser = async (userId,accountId,token) => {
 
 const getMe = async (token) => {
 
-  const { data } = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
+  const data = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
       query: `{
         me {
           user {
@@ -98,10 +98,10 @@ const getMe = async (token) => {
   ).catch(e=>console.log(e.response.data.errors));
 
   return { 
-    userId: data?.data?.me?.user.id, 
-    name: data?.data?.me?.user?.cadastro?.nome, 
-    grupo: data?.data?.me?.user?.cadastro?.grupo, 
-    isAdmin: data?.data?.me?.user?.cadastro?.isAdmin,
+    userId: data?.data?.data?.me?.user.id, 
+    name: data?.data?.data?.me?.user?.cadastro?.nome, 
+    grupo: data?.data?.data?.me?.user?.cadastro?.grupo, 
+    isAdmin: data?.data?.data?.me?.user?.cadastro?.isAdmin,
     token: token 
   }
 
