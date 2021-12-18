@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getAuth = async (email) => {
 
-  const { data } = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
+  const data = await axios.post(process.env.STRAPI_GRAPHQL_URL, {
       query: `mutation {
         login(input: {identifier: "${email}", password: "${process.env.STRAPI_PASSWORD}"}) {
           jwt
@@ -11,7 +11,7 @@ const getAuth = async (email) => {
     }, { headers: { 'Content-Type':'application/json' }}
   ).catch(e=>console.log(e.response.data.errors));
 
-  const dataMe = data?.data && await getMe(data?.data?.login.jwt)
+  const dataMe = data?.data?.data && await getMe(data?.data?.data?.login.jwt)
 
   return dataMe ?? {};
   

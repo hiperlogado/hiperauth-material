@@ -97,6 +97,8 @@ const Home = () => {
         }
         activeStep != sections[section] && changeStep()
     },[section])
+
+    console.log(user)
  
     return <div className={classes.container}>
             {authLoad && <Backdrop className={classes.backdrop}
