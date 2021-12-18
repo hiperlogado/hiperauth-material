@@ -11,6 +11,25 @@ export function AuthProvider({children}){
     const [user, setUser] = useState();
     const [authLoad, setAuthLoad] = useState(true);
 
+    const getAuthentication = async (name,photo,uid,email) => {
+
+        const { data } = await axios.post('/api/auth', { action: 'getAuth', uid: uid, email: email, name: name, photo: photo }).catch(e=>console.log(e))                
+
+        data?.token && Cookies.set('tk',data.token, { expires: 7, secure: true, sameSite: 'strict' })
+
+        setUser({
+            uid: uid,
+            name: data?.name,
+            photo: photo,
+            email: email,
+            userId: parseInt(data?.userId),
+            grupo: data?.grupo,
+            isAdmin: data?.isAdmin,
+            token: data?.token
+        })
+        
+    }
+
     const signInWithGoogle = async (url) => {
 
         setAuthLoad(true)
@@ -21,26 +40,8 @@ export function AuthProvider({children}){
         if (signIn?.user) {
 
             const { displayName, photoURL, uid, email } = signIn?.user;
-
-            const getAuth = async () => {
-
-                const { data } = await axios.post('/api/auth', { action: 'getAuth', uid: uid, email: email, name: displayName, photo: photoURL }).catch(e=>console.log(e))                
-
-                data?.token && Cookies.set('tk',data.token, { expires: 7, secure: true, sameSite: 'strict' })
-
-                setUser({
-                    uid: uid,
-                    name: data?.name,
-                    photo: photoURL,
-                    email: email,
-                    userId: parseInt(data?.userId),
-                    grupo: data?.grupo,
-                    isAdmin: data?.isAdmin,
-                    token: data?.token
-                })
-                
-            }
-            !Cookies.get('tk') && getAuth()
+            
+            !Cookies.get('tk') && getAuthentication(displayName, photoURL, uid, email)
 
         }
         setAuthLoad(false)
@@ -117,25 +118,7 @@ export function AuthProvider({children}){
 
                 const { displayName, photoURL, uid, email } = result?.user;
     
-                const getAuth = async () => {
-    
-                    const { data } = await axios.post('/api/auth', { action: 'getAuth', uid: uid, email: email, name: displayName, photo: photoURL }).catch(e=>console.log(e))
-    
-                    data?.token && Cookies.set('tk',data.token, { expires: 7, secure: true, sameSite: 'strict' })
-    
-                    setUser({
-                        uid: uid,
-                        name: data?.name,
-                        photo: photoURL,
-                        email: email,
-                        userId: parseInt(data?.userId),
-                        grupo: data?.grupo,
-                        isAdmin: data?.isAdmin,
-                        token: data?.token
-                    })
-                    
-                }
-                !Cookies.get('tk') && getAuth()
+                !Cookies.get('tk') && getAuthentication(displayName, photoURL, uid, email)
                 setAuthLoad(false)
     
             } else {
@@ -157,25 +140,7 @@ export function AuthProvider({children}){
 
             const { displayName, photoURL, uid, email } = result?.user;
 
-            const getAuth = async () => {
-
-                const { data } = await axios.post('/api/auth', { action: 'getAuth', uid: uid, email: email, name: displayName, photo: photoURL }).catch(e=>console.log(e))
-
-                data?.token && Cookies.set('tk',data.token, { expires: 7, secure: true, sameSite: 'strict' })
-
-                setUser({
-                    uid: uid,
-                    name: data?.name,
-                    photo: photoURL,
-                    email: email,
-                    userId: parseInt(data?.userId),
-                    grupo: data?.grupo,
-                    isAdmin: data?.isAdmin,
-                    token: data?.token
-                })
-                
-            }
-            !Cookies.get('tk') && getAuth()
+            !Cookies.get('tk') && getAuthentication(displayName, photoURL, uid, email)
 
         }
         

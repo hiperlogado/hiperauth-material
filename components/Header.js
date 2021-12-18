@@ -73,7 +73,7 @@ export default function Header() {
 
     }); 
 
-    return <Hidden smDown implementation="css">
+    return <Hidden xsDown implementation="css">
         <AppBar className={appBarClasses}>                
             <Button className={classes.button}>Início</Button>
                 {!user ? <div className={classes.links}>
